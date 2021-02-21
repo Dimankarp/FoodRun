@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1145
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodRun", "FoodRun\FoodRun.csproj", "{BB9127BF-9643-48EB-9045-3C8526547662}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB9127BF-9643-48EB-9045-3C8526547662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB9127BF-9643-48EB-9045-3C8526547662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB9127BF-9643-48EB-9045-3C8526547662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB9127BF-9643-48EB-9045-3C8526547662}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49B5683A-4C8D-4629-9668-C0CBBF4F7D27}
+	EndGlobalSection
+EndGlobal
