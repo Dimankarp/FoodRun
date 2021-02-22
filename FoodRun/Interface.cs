@@ -11,6 +11,7 @@ namespace FoodRunners
         public Player currPlayer;
         public List<Player> Players = new List<Player>();
         public Program.Map map;
+        public Food food;
         
         
         public void  MapDraw()
@@ -22,7 +23,9 @@ namespace FoodRunners
                     map.CurrMapArray[row][col] = map.OrigMapArray[row][col];
                 }
             }
-            map.CurrMapArray[currPlayer.Y][currPlayer.X] = currPlayer.Character;
+          map.CurrMapArray[currPlayer.Y][currPlayer.X] = currPlayer.Character;
+          if (currPlayer.Y == food.Y && currPlayer.X == food.X) food.FoodTeleport(map);
+            map.CurrMapArray[food.Y][food.X] = food.Character;
           Console.CursorVisible = false;
           for(int i = 0; i < map.Height; i++)
             {

@@ -62,12 +62,15 @@ namespace FoodRunners
         {
             Interface Inter = new Interface();
             Map map = MapFiller();
-            Player penis = new Player();
-            Inter.currPlayer = penis;
+            Player player = new Player();
+            Food food = new Food();
+            Inter.food = food;
+            food.FoodTeleport(map);
+            Inter.currPlayer = player;
             Inter.map = map;
             while (true)
             {
-                penis.MovementAsync(map);
+                player.MovementAsync(map);
                 Inter.MapDraw();
 
             }
