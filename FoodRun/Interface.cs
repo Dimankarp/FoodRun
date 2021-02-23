@@ -11,7 +11,7 @@ namespace FoodRunners
             
         public void  MapDraw(Program.Map map, Player player, Food food)
         {
-          map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray(); //Added that shit
+          map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
           map.CurrMapArray[player.Y][player.X] = player.Character;
           map.CurrMapArray[food.Y][food.X] = food.Character;
           Console.CursorVisible = false;

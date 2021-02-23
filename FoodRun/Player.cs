@@ -8,8 +8,8 @@ namespace FoodRunners
 {
     class Player
     {
-        public int X = 1;
-        public int Y = 1;
+        public int X = 4;
+        public int Y = 4;
         public char Character = 'P';
         public ConsoleColor Color;
         public int Points;
