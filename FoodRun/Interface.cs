@@ -24,7 +24,11 @@ namespace FoodRunners
                 }
             }
           map.CurrMapArray[currPlayer.Y][currPlayer.X] = currPlayer.Character;
-          if (currPlayer.Y == food.Y && currPlayer.X == food.X) food.FoodTeleport(map);
+            if (currPlayer.Y == food.Y && currPlayer.X == food.X)
+            {
+                food.FoodTeleport(map);
+                currPlayer.Points += food.Value;
+            }
             map.CurrMapArray[food.Y][food.X] = food.Character;
           Console.CursorVisible = false;
           for(int i = 0; i < map.Height; i++)
@@ -36,6 +40,12 @@ namespace FoodRunners
             }
             
 
+        }
+
+        public void PointsShow()
+        {
+            Console.SetCursorPosition(5, map.Height + 5);
+            Console.Write("\r{0}   ", currPlayer.Points.ToString());
         }
     }
 }

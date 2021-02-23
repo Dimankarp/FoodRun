@@ -72,6 +72,7 @@ namespace FoodRunners
             {
                 player.MovementAsync(map);
                 Inter.MapDraw();
+                Inter.PointsShow();
 
             }
 
