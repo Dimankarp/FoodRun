@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Food.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

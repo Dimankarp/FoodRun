@@ -55,27 +55,15 @@ namespace FoodRunners
 
             }
 
-            return map;
+            return map; 
         }
 
         static void Main(string[] args)
-        {
-            Interface Inter = new Interface();
+        {    
             Map map = MapFiller();
             Player player = new Player();
-            Food food = new Food();
-            Inter.food = food;
-            food.FoodTeleport(map);
-            Inter.currPlayer = player;
-            Inter.map = map;
-            while (true)
-            {
-                player.MovementAsync(map);
-                Inter.MapDraw();
-                Inter.PointsShow();
-
-            }
-
+            Game NewGame = new Game(map, player);
+            NewGame.Start();
         }
 
     }
