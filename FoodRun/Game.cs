@@ -22,25 +22,28 @@ namespace FoodRunners
         {
             Interface Interf = new Interface();
             Food Food = new Food();
+            AI ai = new AI();
             Food.FoodTeleport(Map);//Initializing  Starting Food Position
             while (true)
             {
+                ai.MovementAsync(Map, Food);
                 Player.MovementAsync(Map);
-                FoodCheck(Player, Food);
-                Interf.MapDraw(Map, Player, Food);
+                FoodCheck(Player, Food, ai);
+                Interf.MapDraw(Map, Player, Food, ai);
                 Interf.PointsShow(Map, Player);
             }
 
 
         }
 
-        private void FoodCheck(Player player, Food food)
+        private void FoodCheck(Player player, Food food, AI ai)
         {
             if (player.Y == food.Y && player.X == food.X)
             {
                 food.FoodTeleport(Map);
                 player.Points += food.Value;
             }
+            else if(ai.Y == food.Y && ai.X == food.X) food.FoodTeleport(Map);
 
         }
 

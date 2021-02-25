@@ -8,21 +8,22 @@ namespace FoodRunners
 {
     class Interface
     {
-            
-        public void  MapDraw(Program.Map map, Player player, Food food)
+
+        public void MapDraw(Program.Map map, Player player, Food food, AI computer)
         {
-          map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
-          map.CurrMapArray[player.Y][player.X] = player.Character;
-          map.CurrMapArray[food.Y][food.X] = food.Character;
-          Console.CursorVisible = false;
-          for(int i = 0; i < map.Height; i++)
+            map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
+            map.CurrMapArray[computer.Y][computer.X] = computer.Character;
+            map.CurrMapArray[player.Y][player.X] = player.Character;
+            map.CurrMapArray[food.Y][food.X] = food.Character;
+            Console.CursorVisible = false;
+            for (int i = 0; i < map.Height; i++)
             {
                 Console.SetCursorPosition(0, i);
                 Console.Write("\r{0}    ", string.Join("", map.CurrMapArray[i]));
 
 
             }
-            
+
 
         }
 
