@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,12 @@ namespace FoodRunners
         private int LastFoodX;
         private int LastFoodY;
         private string[][] ValueMap;
-
+        private Stopwatch Watch = new Stopwatch();
         public async void MovementAsync(Program.Map map, Food food)
         {
             await Task.Run(() => AIMovement(map, food));
         }
-        private void AIMovement(Program.Map map, Food food)
+        public void AIMovement(Program.Map map, Food food)
         {
             if (food.X != LastFoodX || food.Y != LastFoodY) //Recalculating path
             {
@@ -41,8 +42,9 @@ namespace FoodRunners
                 MapEvaluator();
                 PathBuilder(LastFoodX, LastFoodY);
             }
-            if (CurrPath.Count != 0)
+            if (CurrPath.Count != 0 && (Watch.IsRunning==false || Watch.ElapsedMilliseconds > 300))
             {
+                Watch.Restart();
                 int[] Coords = CurrPath.Pop();
                 X = Coords[0];
                 Y = Coords[1];

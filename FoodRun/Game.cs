@@ -26,7 +26,7 @@ namespace FoodRunners
             Food.FoodTeleport(Map);//Initializing  Starting Food Position
             while (true)
             {
-                ai.MovementAsync(Map, Food);
+                ai.AIMovement(Map, Food);
                 Player.MovementAsync(Map);
                 FoodCheck(Player, Food, ai);
                 Interf.MapDraw(Map, Player, Food, ai);
