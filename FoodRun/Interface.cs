@@ -19,7 +19,7 @@ namespace FoodRunners
             for (int i = 0; i < map.Height; i++)
             {
                 Console.SetCursorPosition(0, i);
-                Console.Write("\r{0}    ", string.Join("", map.CurrMapArray[i]));
+                Console.Write("\r{0}    ", string.Join(" ", map.CurrMapArray[i]));
 
 
             }
