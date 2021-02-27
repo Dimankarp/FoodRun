@@ -12,7 +12,7 @@ namespace FoodRunners
         public Player Player;
 
 
-         public Game(Program.Map map, Player player)
+        public Game(Program.Map map, Player player)
         {
             Map = map;
             Player = player;
@@ -30,7 +30,7 @@ namespace FoodRunners
                 Player.MovementAsync(Map);
                 FoodCheck(Player, Food, ai);
                 Interf.MapDraw(Map, Player, Food, ai);
-                Interf.PointsShow(Map, Player);
+                Interf.PointsShow(Map, Player, ai);
             }
 
 
@@ -43,11 +43,12 @@ namespace FoodRunners
                 food.FoodTeleport(Map);
                 player.Points += food.Value;
             }
-            else if(ai.Y == food.Y && ai.X == food.X) food.FoodTeleport(Map);
-
+            else if (ai.Y == food.Y && ai.X == food.X)
+            {
+                food.FoodTeleport(Map);
+                ai.Points += food.Value;
+            }
         }
 
-
-    
     }
 }

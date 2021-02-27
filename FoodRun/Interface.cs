@@ -27,10 +27,13 @@ namespace FoodRunners
 
         }
 
-        public void PointsShow(Program.Map map, Player player)
+        public void PointsShow(Program.Map map, Player player, AI ai)
         {
             Console.SetCursorPosition(5, map.Height + 5);
             Console.Write("\r{0}   ", player.Points.ToString());
+            Console.SetCursorPosition(5, map.Height + 6);
+            Console.Write("\r{0}   ", ai.Points.ToString());
+
         }
     }
 }

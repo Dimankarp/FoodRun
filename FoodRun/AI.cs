@@ -23,23 +23,22 @@ namespace FoodRunners
         }
         private void AIMovement(Program.Map map, Food food)
         {
-         if(food.X != LastFoodX || food.Y != LastFoodY) //Recalculating path
+            if (food.X != LastFoodX || food.Y != LastFoodY) //Recalculating path
             {
                 LastFoodX = food.X;
                 LastFoodY = food.Y;
-                // ValueMap = map.OrigMapArray.Select(a => (string[])a.Clone()).ToArray();
                 ValueMap = new string[map.Height][];
-                for(int row = 0; row < map.Height; row++)
+                for (int row = 0; row < map.Height; row++)
                 {
                     ValueMap[row] = new string[map.Width];
-                    for(int col = 0; col < map.Width; col++)
+                    for (int col = 0; col < map.Width; col++)
                     {
                         ValueMap[row][col] = map.OrigMapArray[row][col].ToString();
                     }
 
                 }
                 CurrPath.Clear();
-                MapEvaluator(X, Y, 0);
+                MapEvaluator();
                 PathBuilder(LastFoodX, LastFoodY);
             }
             if (CurrPath.Count != 0)
@@ -50,17 +49,36 @@ namespace FoodRunners
             }
         }
 
-        private bool MapEvaluator(int startX, int startY, int Value) //Yes, I know that many args don't match the standart...but who cares?!
+        private void MapEvaluator()
         {
-            bool Found = false;
-            if (startX == LastFoodX && startY == LastFoodY) return true;
-            ValueMap[startY][startX] = Value.ToString();
-            if (ValueMap[startY + 1][startX] == "*") Found = MapEvaluator(startX, startY + 1, Value + 1);
-            if (ValueMap[startY][startX + 1] == "*") Found = MapEvaluator(startX + 1, startY, Value + 1);
-            if (ValueMap[startY - 1][startX] == "*") Found = MapEvaluator(startX, startY - 1, Value + 1);
-            if (ValueMap[startY][startX - 1] == "*") Found = MapEvaluator(startX - 1, startY, Value + 1);
-
-            return Found;
+            Queue<int[]> Coords = new Queue<int[]>();
+            int[] currCords = { X, Y, 0};
+            Coords.Enqueue(currCords);
+            while (Coords.Count > 0)
+            {
+                int[] Current = Coords.Dequeue();
+                ValueMap[Current[1]][Current[0]] = Current[2].ToString();//Yeah, I know, that's a mess...but who cares?!
+                if (ValueMap[Current[1] + 1][Current[0]] == "*")
+                {
+                    int[] newCords = {Current[0], Current[1] + 1, Current[2] + 1 };
+                    Coords.Enqueue(newCords);
+                }
+                if (ValueMap[Current[1]][Current[0]+1] == "*")
+                {
+                    int[] newCords = { Current[0]+1, Current[1], Current[2] + 1 };
+                    Coords.Enqueue(newCords);
+                }
+                if (ValueMap[Current[1] - 1][Current[0]] == "*")
+                {
+                    int[] newCords = { Current[0], Current[1] - 1, Current[2] + 1 };
+                    Coords.Enqueue(newCords);
+                }
+                if (ValueMap[Current[1]][Current[0] - 1] == "*")
+                {
+                    int[] newCords = { Current[0] - 1, Current[1], Current[2] + 1 };
+                    Coords.Enqueue(newCords);
+                }
+            }
         }
 
         private void PathBuilder(int curX, int curY)
@@ -108,6 +126,19 @@ namespace FoodRunners
                 }
             }
 
+
+        }
+
+        public void MapHotness()//Shows the ValueMap(each cell has it's own value based on distance from  AI's X,Y)
+        {
+            Console.CursorVisible = false;
+            for (int i = 0; i < ValueMap.Length; i++)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.Write("\r{0}    ", string.Join(" ", ValueMap[i]));
+
+
+            }
 
         }
 
