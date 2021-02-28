@@ -24,7 +24,6 @@ namespace FoodRunners
 
             }
 
-
         }
 
         public void PointsShow(Program.Map map, Player player, AI ai)
