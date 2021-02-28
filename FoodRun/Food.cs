@@ -10,7 +10,7 @@ namespace FoodRunners
     {
         public int X;
         public int Y;
-        public char Character = 'Ъ';
+        public char Character = '☼';
         public ConsoleColor Color;
         public int Value = 10;
 

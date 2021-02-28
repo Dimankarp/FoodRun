@@ -10,7 +10,7 @@ namespace FoodRunners
     {
         public int X = 4;
         public int Y = 4;
-        public char Character = 'A';
+        public char Character = '☺';
         public ConsoleColor Color;
         public int Points;
         private Stack<int[]> CurrPath = new Stack<int[]>();
@@ -42,7 +42,7 @@ namespace FoodRunners
                 MapEvaluator();
                 PathBuilder(LastFoodX, LastFoodY);
             }
-            if (CurrPath.Count != 0 && (Watch.IsRunning==false || Watch.ElapsedMilliseconds > 300))
+            if (CurrPath.Count != 0 && (Watch.IsRunning==false || Watch.ElapsedMilliseconds > 200)) //The less the number, the faster an AI is
             {
                 Watch.Restart();
                 int[] Coords = CurrPath.Pop();
