@@ -91,11 +91,25 @@ namespace FoodRunners
         }
 
         static void Main(string[] args)
-        {    
-            Map map = MapFiller();
-            Player player = new Player();
-            Game NewGame = new Game(map, player);
-            NewGame.Start();
+        {
+            Interface Interf = new Interface();
+            string[] Answers = { "Singleplayer", "Multiplayer(WIP)", "Exit" };
+            string Question = "Main Menu.";
+            switch(Interf.AnswerInterface<string>(Question, Answers))
+            {
+                case 0:
+                    Map map = MapFiller();
+                    Player player = new Player();
+                    Game NewGame = new Game(map, player);
+                    Console.Clear();
+                    NewGame.Start();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+              
+            }
         }
 
     }

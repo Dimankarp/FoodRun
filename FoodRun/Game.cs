@@ -40,6 +40,7 @@ namespace FoodRunners
         {
             if (player.Y == food.Y && player.X == food.X)
             {
+                //Console.Beep(450,20); -Uncomment, when mute button is added. Sounds Plausable, though.
                 food.FoodTeleport(Map);
                 player.Points += food.Value;
             }
