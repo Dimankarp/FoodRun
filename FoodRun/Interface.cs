@@ -19,6 +19,7 @@ namespace FoodRunners
 
         public int  AnswerInterface<T>(string Title, IEnumerable<T> Answers)
         {
+            Console.Clear();
             string PadString = "";//Used for Padding in Title Showing
 
             Console.ForegroundColor = ConsoleColor.Gray;//Logo Showing

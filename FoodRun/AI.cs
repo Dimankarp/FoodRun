@@ -13,11 +13,15 @@ namespace FoodRunners
         public char Character = '☺';
         public ConsoleColor Color;
         public int Points;
+        public int MovementTime = 200; //Time needed for AI to move on the next cell
         private Stack<int[]> CurrPath = new Stack<int[]>();
         private int LastFoodX;
         private int LastFoodY;
         private string[][] ValueMap;
         private Stopwatch Watch = new Stopwatch();
+
+
+
         public async void MovementAsync(Program.Map map, Food food)
         {
             await Task.Run(() => AIMovement(map, food));
@@ -42,7 +46,7 @@ namespace FoodRunners
                 MapEvaluator();
                 PathBuilder(LastFoodX, LastFoodY);
             }
-            if (CurrPath.Count != 0 && (Watch.IsRunning==false || Watch.ElapsedMilliseconds > 200)) //The less the number, the faster an AI is
+            if (CurrPath.Count != 0 && (Watch.IsRunning==false || Watch.ElapsedMilliseconds > MovementTime)) //The less the number, the faster an AI is
             {
                 Watch.Restart();
                 int[] Coords = CurrPath.Pop();

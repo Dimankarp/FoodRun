@@ -20,6 +20,7 @@ namespace FoodRunners
 
         public void Start()
         {
+            Console.Clear();
             Interface Interf = new Interface();
             Food Food = new Food();
             AI ai = new AI();

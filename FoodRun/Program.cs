@@ -10,6 +10,8 @@ namespace FoodRunners
     {
         public struct Map
         {
+            public string Name;
+            public int Number;
             public int Height;
             public int Width;
             public char[][] CurrMapArray;
@@ -41,6 +43,7 @@ namespace FoodRunners
                    new char[]{'#', '*','*','*','*','*','*','*','#'},
                    new char[]{'#', '#','#','#','#','#','#','#','#'},
                     };
+                    map.Name = "Boring Square";
                     break;
                 case 2: //Map #2 - The Circle(Sort of...)
                     map.OrigMapArray = new char[15][]
@@ -61,6 +64,7 @@ namespace FoodRunners
                    new char[]{' ',' ','#','*','*','*','#',' ',' '},
                    new char[]{' ',' ',' ','#','#','#',' ',' ',' '},
                     };
+                    map.Name = "Funny Circle";
                     break;
 
                 case 3://Map #3 -  The Sand Clocks...Of Death!
@@ -82,8 +86,10 @@ namespace FoodRunners
                    new char[]{' ', '#','*','*','*','*','*','#',' '},
                    new char[]{' ', '#','#','#','#','#','#','#',' '},
                     };
+                    map.Name = "The Sand Clocks...Of Death";
                     break;
             }
+            map.Number = type;
             map.Height = map.OrigMapArray.Length;
             map.Width = map.OrigMapArray[0].Length;
             map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
@@ -93,16 +99,32 @@ namespace FoodRunners
         static void Main(string[] args)
         {
             Interface Interf = new Interface();
-            string[] Answers = { "Singleplayer", "Multiplayer(WIP)", "Exit" };
-            string Question = "Main Menu.";
-            switch(Interf.AnswerInterface<string>(Question, Answers))
+            string[] Answers = { "Single-Player", "Multiplayer(WIP)", "Exit" };
+            string Question = "Main Menu";
+            switch(Interf.AnswerInterface(Question, Answers))
             {
                 case 0:
                     Map map = MapFiller();
                     Player player = new Player();
-                    Game NewGame = new Game(map, player);
-                    Console.Clear();
-                    NewGame.Start();
+                    string[] Settings = { "Start", "Change Map", "Change AI's Difficulty" };
+                    while (true)
+                    {
+                        Question = "Current map is:" + map.Name;
+                        switch (Interf.AnswerInterface(Question, Settings))
+                        {
+                            case 0:
+                                Game NewGame = new Game(map, player);
+                                NewGame.Start();
+                                break;
+                            case 1:
+                                if (map.Number == 3) map = MapFiller(1);
+                                else map = MapFiller(map.Number + 1);
+                                break;
+                            case 2:      
+                                break;
+
+                        }
+                    }
                     break;
                 case 1:
                     break;
