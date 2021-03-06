@@ -17,7 +17,7 @@ namespace FoodRunners
  |_|  \___/ \___/ \__,_|_| \_\\__,_|_| |_|
                                           ";
 
-        public int  AnswerInterface<T>(string Title, IEnumerable<T> Answers)
+        public int  AnswerInterface<T>(string Title, IEnumerable<T> Answers, int StartPos = 0)
         {
             Console.Clear();
             string PadString = "";//Used for Padding in Title Showing
@@ -34,16 +34,16 @@ namespace FoodRunners
             Console.Write("{0}{1}", Title, PadString.PadRight(Console.WindowWidth - MidTextStart - Title.Length, '-'));
 
             
-           return AnswerChooser(Answers);
+           return AnswerChooser(Answers, StartPos);
         }
 
-        private int AnswerChooser<T>(IEnumerable<T> Answers)
+        private int AnswerChooser<T>(IEnumerable<T> Answers, int StartPos = 0)
         {
             Console.CursorVisible = false;
             Console.CursorTop += 2;
             int OrigTop = Console.CursorTop;
             string ArrowPointer = "-->";
-            int answer = 0;
+            int answer = StartPos;
             while (true)
             {
                 for (int i = 0; i < Answers.Count(); i++)
