@@ -24,7 +24,7 @@ namespace FoodRunners
             Map map = new Map();
             switch (type)
             {
-                case 1://Map #1 - The Original one
+                case 1://Map #1 - The Rectangle of Boringness
                     map.OrigMapArray = new char[15][]
                     {
                    new char[]{'#', '#','#','#','#','#','#','#','#'},
@@ -43,8 +43,9 @@ namespace FoodRunners
                    new char[]{'#', '*','*','*','*','*','*','*','#'},
                    new char[]{'#', '#','#','#','#','#','#','#','#'},
                     };
-                    map.Name = "Boring Square";
+                    map.Name = "The Rectangle of Boringness";
                     break;
+
                 case 2: //Map #2 - The Circle(Sort of...)
                     map.OrigMapArray = new char[15][]
                     {
@@ -64,7 +65,7 @@ namespace FoodRunners
                    new char[]{' ',' ','#','*','*','*','#',' ',' '},
                    new char[]{' ',' ',' ','#','#','#',' ',' ',' '},
                     };
-                    map.Name = "Funny Circle";
+                    map.Name = "The Circle of Fun";
                     break;
 
                 case 3://Map #3 -  The Sand Clocks...Of Death!
@@ -88,6 +89,51 @@ namespace FoodRunners
                     };
                     map.Name = "The Sand Clocks...Of Death";
                     break;
+
+                case 4://Map #4 - The Labyrinth of Illegible symbols
+                    map.OrigMapArray = new char[15][]
+                    {
+                   new char[]{'#', '#','#','#','#','#','#','#','#'},
+                   new char[]{'#', '*','*','*','*','*','*','*','#'},
+                   new char[]{'#', '*','#','#','#','#','*','#','#'},
+                   new char[]{'#', '*','*','*','#','*','*','*','#'},
+                   new char[]{'#', '#','#','*','#','*','#','*','#'},
+                   new char[]{'#', '*','#','*','#','*','#','*','#'},
+                   new char[]{'#', '*','#','*','#','*','#','*','#'},
+                   new char[]{'#', '*','*','*','*','*','#','*','#'},
+                   new char[]{'#', '*','#','#','#','#','#','*','#'},
+                   new char[]{'#', '*','*','*','*','*','#','*','#'},
+                   new char[]{'#', '#','#','#','#','*','#','#','#'},
+                   new char[]{'#', '*','*','*','*','*','#','*','#'},
+                   new char[]{'#', '*','#','#','#','#','#','*','#'},
+                   new char[]{'#', '*','*','*','*','*','*','*','#'},
+                   new char[]{'#', '#','#','#','#','#','#','#','#'},
+                    };
+                    map.Name = "The Labyrinth of Blurry Walls";
+                    break;
+
+                case 5://Map #5 - The Box of Boxes
+                    map.OrigMapArray = new char[15][]
+                    {
+                   new char[]{'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','#','#','#','#','#','*','#','#','#','#','#','*','#'},
+                   new char[]{'#','*','#','*','*','*','*','*','*','*','*','*','#','*','#'},
+                   new char[]{'#','*','#','*','#','#','#','*','#','#','#','*','#','*','#'},
+                   new char[]{'#','*','#','*','#','*','*','*','*','*','#','*','#','*','#'},
+                   new char[]{'#','*','#','*','#','*','#','*','#','*','#','*','#','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','#','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','#','*','#','*','#','*','#','*','#','*','#','*','#'},
+                   new char[]{'#','*','#','*','#','*','*','*','*','*','#','*','#','*','#'},
+                   new char[]{'#','*','#','*','#','#','#','*','#','#','#','*','#','*','#'},
+                   new char[]{'#','*','#','*','*','*','*','*','*','*','*','*','#','*','#'},
+                   new char[]{'#','*','#','#','#','#','#','*','#','#','#','#','#','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
+                    };
+                    map.Name = "The Box of Boxes";
+                    break;
+
             }
             map.Number = type;
             map.Height = map.OrigMapArray.Length;
@@ -133,7 +179,7 @@ namespace FoodRunners
                         break;
                     case 1:
                         CursorPos = 1;
-                        if (map.Number == 3) map = MapFiller(1);
+                        if (map.Number == 5) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
                         else map = MapFiller(map.Number + 1);
                         break;
                     case 2:
