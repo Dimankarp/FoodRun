@@ -18,12 +18,13 @@ namespace FoodRunners
             Player = player;
         }
 
-        public void Start()
+        public void Start(int AIDifficulty = 1)
         {
             Console.Clear();
             Interface Interf = new Interface();
             Food Food = new Food();
             AI ai = new AI();
+            ai.MovementTime *= AIDifficulty;
             Food.FoodTeleport(Map);//Initializing  Starting Food Position
             while (true)
             {

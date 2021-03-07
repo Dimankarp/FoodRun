@@ -168,14 +168,30 @@ namespace FoodRunners
             string[] Settings = { "Start", "Change Map", "Change AI's Difficulty" };
             string Question;
             int CursorPos = 0;
+            int AIDifficulty = 3;
             while (true)
             {
                 Question = "Current map is:" + map.Name;
+                switch (AIDifficulty)
+                {
+                    case 1:
+                        Question += "||AI Difficulty - Hard";
+                        break;
+                    case 2:
+                        Question += "||AI Difficulty - Medium";
+                        break;
+                    case 3:
+                        Question += "||AI Difficulty - Easy";
+                        break;
+
+                }
+
+
                 switch (Interf.AnswerInterface(Question, Settings, CursorPos))
                 {
                     case 0:
                         Game NewGame = new Game(map, player);
-                        NewGame.Start();
+                        NewGame.Start(AIDifficulty);
                         break;
                     case 1:
                         CursorPos = 1;
@@ -183,6 +199,9 @@ namespace FoodRunners
                         else map = MapFiller(map.Number + 1);
                         break;
                     case 2:
+                        CursorPos = 2;
+                        if (AIDifficulty == 1) AIDifficulty = 3;
+                        else AIDifficulty--;
                         break;
 
                 }

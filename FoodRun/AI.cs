@@ -13,7 +13,7 @@ namespace FoodRunners
         public char Character = '☺';
         public ConsoleColor Color;
         public int Points;
-        public int MovementTime = 200; //Time needed for AI to move on the next cell
+        public int MovementTime = 150; //Time needed for AI to move on the next cell 600 - easy 400 - medium 200-hard
         private Stack<int[]> CurrPath = new Stack<int[]>();
         private int LastFoodX;
         private int LastFoodY;
