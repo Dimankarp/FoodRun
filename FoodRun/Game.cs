@@ -59,26 +59,18 @@ namespace FoodRunners
 
         private void Pause()
         {
-            //int LeftTemp = Console.CursorLeft;
-           // int TopTemp = Console.CursorTop;
             if (!Paused)
             {
                 Paused = true;
-                //Console.SetCursorPosition(40, Map.Height + 1);
-                //Console.Write("THE GAME IS PAUSED");
                 Player.ControlsEnabled = false;
                 ai.Paused = true;
             }
             else
             {
                 Paused = false;
-                //Console.SetCursorPosition(40, Map.Height + 1);
-               // Console.Write("                  ");
                 Player.ControlsEnabled = true;
                 ai.Paused = false;
             }
-            // Console.SetCursorPosition(LeftTemp, TopTemp);
-
         }
 
     }
