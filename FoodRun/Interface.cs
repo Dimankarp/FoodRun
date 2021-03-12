@@ -8,7 +8,6 @@ namespace FoodRunners
 {
     class Interface
     {
-
         private string Logo = @"
   _____               _ ____              
  |  ___|__   ___   __| |  _ \ _   _ _ __  
@@ -99,6 +98,34 @@ namespace FoodRunners
             Console.SetCursorPosition(0, map.Height + 5);
             Console.Write("AI's     Points: {0}   ", ai.Points.ToString());
 
+        }
+
+        public void PauseTextToggle(Program.Map map, bool state = true)
+        {
+            if (state)
+            {
+                string Text = "THE GAME IS PAUSED. PRESS 'ESC' OR 'P' TO UNPAUSE";
+                int MidTextStart = Console.WindowWidth / 2 - Text.Length / 2;
+                Console.CursorLeft = MidTextStart;
+                Console.SetCursorPosition(MidTextStart, map.Height + 7);
+                Console.Write(Text);
+            }
+            else
+            {
+                Console.CursorTop = map.Height + 8; //Added 1 to heigth - look at ClearLine Method()
+                ClearLine();
+
+            }
+        
+
+
+        }
+
+        public void ClearLine()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.Write(new string(' ', Console.BufferWidth));
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
         }
     }
 }

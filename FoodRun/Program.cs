@@ -171,7 +171,7 @@ namespace FoodRunners
             int AIDifficulty = 3;
             while (true)
             {
-                Question = "Current map is:" + map.Name;
+                Question = $"Current map is:{map.Name}";
                 switch (AIDifficulty)
                 {
                     case 1:

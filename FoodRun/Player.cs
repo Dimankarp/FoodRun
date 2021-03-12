@@ -13,6 +13,9 @@ namespace FoodRunners
         public char Character = '☻';
         public ConsoleColor Color;
         public int Points;
+        public bool ControlsEnabled = true;
+        public delegate void PauseHandler();
+        public event PauseHandler Pause;
 
         public async void MovementAsync(Program.Map map)
         {
@@ -21,22 +24,31 @@ namespace FoodRunners
         private void PlayerMovement(Program.Map map)
         {
             string key = Console.ReadKey(true).Key.ToString();
-            if (key == "W" || key == "UpArrow")
+            if (key == "P" || key == "Escape")
             {
-                if (map.OrigMapArray[Y - 1][X] != '#') Y--;
+                Pause?.Invoke();
+                return;
             }
-           else if (key == "S" || key == "DownArrow")
+            if (ControlsEnabled)
             {
-                if (map.OrigMapArray[Y + 1][X] != '#') Y++;
+                if (key == "W" || key == "UpArrow")
+                {
+                    if (map.OrigMapArray[Y - 1][X] != '#') Y--;
+                }
+                else if (key == "S" || key == "DownArrow")
+                {
+                    if (map.OrigMapArray[Y + 1][X] != '#') Y++;
+                }
+                else if (key == "A" || key == "LeftArrow")
+                {
+                    if (map.OrigMapArray[Y][X - 1] != '#') X--;
+                }
+                else if (key == "D" || key == "RightArrow")
+                {
+                    if (map.OrigMapArray[Y][X + 1] != '#') X++;
+                }
             }
-            else if (key == "A" || key == "LeftArrow")
-            {
-                if (map.OrigMapArray[Y][X-1] != '#') X--;
-            }
-            else if (key == "D" || key == "RightArrow")
-            {
-                if (map.OrigMapArray[Y][X+1] != '#') X++;
-            }
+
 
         }
 

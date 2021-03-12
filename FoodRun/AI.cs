@@ -14,6 +14,7 @@ namespace FoodRunners
         public ConsoleColor Color;
         public int Points;
         public int MovementTime = 150; //Time needed for AI to move on the next cell 600 - easy 400 - medium 200-hard
+        public bool Paused = false;
         private Stack<int[]> CurrPath = new Stack<int[]>();
         private int LastFoodX;
         private int LastFoodY;
@@ -28,6 +29,7 @@ namespace FoodRunners
         }
         public void AIMovement(Program.Map map, Food food)
         {
+            if (Paused) return;
             if (food.X != LastFoodX || food.Y != LastFoodY) //Recalculating path
             {
                 LastFoodX = food.X;
@@ -46,7 +48,7 @@ namespace FoodRunners
                 MapEvaluator();
                 PathBuilder(LastFoodX, LastFoodY);
             }
-            if (CurrPath.Count != 0 && (Watch.IsRunning==false || Watch.ElapsedMilliseconds > MovementTime)) //The less the number, the faster an AI is
+            if (CurrPath.Count != 0 && (Watch.IsRunning == false || Watch.ElapsedMilliseconds > MovementTime)) //The less the number, the faster an AI is
             {
                 Watch.Restart();
                 int[] Coords = CurrPath.Pop();
@@ -58,7 +60,7 @@ namespace FoodRunners
         private void MapEvaluator()
         {
             Queue<int[]> Coords = new Queue<int[]>();
-            int[] currCords = { X, Y, 0};
+            int[] currCords = { X, Y, 0 };
             Coords.Enqueue(currCords);
             while (Coords.Count > 0)
             {
@@ -66,12 +68,12 @@ namespace FoodRunners
                 ValueMap[Current[1]][Current[0]] = Current[2].ToString();//Yeah, I know, that's a mess...but who cares?!
                 if (ValueMap[Current[1] + 1][Current[0]] == "*")
                 {
-                    int[] newCords = {Current[0], Current[1] + 1, Current[2] + 1 };
+                    int[] newCords = { Current[0], Current[1] + 1, Current[2] + 1 };
                     Coords.Enqueue(newCords);
                 }
-                if (ValueMap[Current[1]][Current[0]+1] == "*")
+                if (ValueMap[Current[1]][Current[0] + 1] == "*")
                 {
-                    int[] newCords = { Current[0]+1, Current[1], Current[2] + 1 };
+                    int[] newCords = { Current[0] + 1, Current[1], Current[2] + 1 };
                     Coords.Enqueue(newCords);
                 }
                 if (ValueMap[Current[1] - 1][Current[0]] == "*")
@@ -100,7 +102,8 @@ namespace FoodRunners
             if (Int32.TryParse(ValueMap[curY][curX - 1], out min)) mins.Add(min);
             min = mins.Min();
             int temp;
-            if (Int32.TryParse(ValueMap[curY + 1][curX], out temp)){
+            if (Int32.TryParse(ValueMap[curY + 1][curX], out temp))
+            {
                 if (temp == min)
                 {
                     PathBuilder(curX, curY + 1);
@@ -108,7 +111,8 @@ namespace FoodRunners
                 }
             }
 
-            if (Int32.TryParse(ValueMap[curY][curX + 1], out temp)){
+            if (Int32.TryParse(ValueMap[curY][curX + 1], out temp))
+            {
                 if (temp == min)
                 {
                     PathBuilder(curX + 1, curY);
@@ -116,7 +120,8 @@ namespace FoodRunners
                 }
             }
 
-            if (Int32.TryParse(ValueMap[curY - 1][curX], out temp)){
+            if (Int32.TryParse(ValueMap[curY - 1][curX], out temp))
+            {
                 if (temp == min)
                 {
                     PathBuilder(curX, curY - 1);
@@ -124,7 +129,8 @@ namespace FoodRunners
                 }
             }
 
-            if (Int32.TryParse(ValueMap[curY][curX - 1], out temp)){
+            if (Int32.TryParse(ValueMap[curY][curX - 1], out temp))
+            {
                 if (temp == min)
                 {
                     PathBuilder(curX - 1, curY);
@@ -147,10 +153,6 @@ namespace FoodRunners
             }
 
         }
-
-
-
-
 
     }
 }
