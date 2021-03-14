@@ -144,10 +144,9 @@ namespace FoodRunners
 
         static void Main(string[] args)
         {
-            Interface Interf = new Interface();
             string[] Answers = { "Single-Player", "Multiplayer(WIP)", "Exit" };
             string Question = "Main Menu";
-            switch (Interf.AnswerInterface(Question, Answers))
+            switch (Interface.AnswerInterface(Question, Answers))
             {
                 case 0:
                     SinglePlayerMode();
@@ -162,7 +161,6 @@ namespace FoodRunners
 
         private static void SinglePlayerMode()
         {
-            Interface Interf = new Interface();
             Map map = MapFiller();
             Player player = new Player();
             string[] Settings = { "Start", "Change Map", "Change AI's Difficulty" };
@@ -187,7 +185,7 @@ namespace FoodRunners
                 }
 
 
-                switch (Interf.AnswerInterface(Question, Settings, CursorPos))
+                switch (Interface.AnswerInterface(Question, Settings, CursorPos))
                 {
                     case 0:
                         Game NewGame = new Game(map, player);

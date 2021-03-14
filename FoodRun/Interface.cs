@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FoodRunners
 {
-    class Interface
+     static class Interface
     {
-        private string Logo = @"
+        private static string Logo = @"
   _____               _ ____              
  |  ___|__   ___   __| |  _ \ _   _ _ __  
  | |_ / _ \ / _ \ / _` | |_) | | | | '_ \ 
@@ -16,7 +16,7 @@ namespace FoodRunners
  |_|  \___/ \___/ \__,_|_| \_\\__,_|_| |_|
                                           ";
 
-        public int  AnswerInterface<T>(string Title, IEnumerable<T> Answers, int StartPos = 0)
+        public static int  AnswerInterface<T>(string Title, IEnumerable<T> Answers, int StartPos = 0)
         {
             Console.Clear();
             string PadString = "";//Used for Padding in Title Showing
@@ -36,7 +36,7 @@ namespace FoodRunners
            return AnswerChooser(Answers, StartPos);
         }
 
-        private int AnswerChooser<T>(IEnumerable<T> Answers, int StartPos = 0)
+        private static int AnswerChooser<T>(IEnumerable<T> Answers, int StartPos = 0)
         {
             Console.CursorVisible = false;
             Console.CursorTop += 2;
@@ -74,7 +74,7 @@ namespace FoodRunners
         }
 
 
-        public void MapDraw(Program.Map map, Player player, Food food, AI computer)
+        public static void  MapDraw(Program.Map map, Player player, Food food, AI computer)
         {
             map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
             map.CurrMapArray[computer.Y][computer.X] = computer.Character;
@@ -91,7 +91,7 @@ namespace FoodRunners
 
         }
 
-        public void PointsShow(Program.Map map, Player player, AI ai)
+        public static void PointsShow(Program.Map map, Player player, AI ai)
         {
             Console.SetCursorPosition(0, map.Height + 3);
             Console.Write("Player's Points: {0}   ", player.Points.ToString());
@@ -100,7 +100,7 @@ namespace FoodRunners
 
         }
 
-        public void PauseTextToggle(Program.Map map, bool state = true)
+        public  static void PauseTextToggle(Program.Map map, bool state = true)
         {
             if (state)
             {
@@ -121,7 +121,7 @@ namespace FoodRunners
 
         }
 
-        public void ClearLine()
+        public static void ClearLine()
         {
             Console.SetCursorPosition(0, Console.CursorTop - 1);
             Console.Write(new string(' ', Console.BufferWidth));

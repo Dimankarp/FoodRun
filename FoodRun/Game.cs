@@ -23,7 +23,6 @@ namespace FoodRunners
         public void Start(int AIDifficulty = 1)
         {
             Console.Clear();
-            Interface Interf = new Interface();
             Food Food = new Food();
             ai = new AI();
             ai.MovementTime *= AIDifficulty;
@@ -34,9 +33,9 @@ namespace FoodRunners
                     ai.AIMovement(Map, Food);
                     Player.MovementAsync(Map);
                     FoodCheck(Player, Food, ai);
-                    Interf.MapDraw(Map, Player, Food, ai);
-                    Interf.PointsShow(Map, Player, ai);
-                    Interf.PauseTextToggle(Map, Paused);
+                Interface.MapDraw(Map, Player, Food, ai);
+                Interface.PointsShow(Map, Player, ai);
+                Interface.PauseTextToggle(Map, Paused);
             }
 
 
