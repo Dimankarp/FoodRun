@@ -8,6 +8,7 @@ namespace FoodRunners
 {
     class Program
     {
+        [Serializable]
         public struct Map
         {
             public string Name;
@@ -144,6 +145,20 @@ namespace FoodRunners
 
         static void Main(string[] args)
         {
+
+            
+            if (Console.ReadLine() == "start")
+            {       
+                Server server = new Server("127.0.0.1", 8005);
+                server.Start(2,MapFiller());
+            }
+            else
+            {
+                Client client = new Client("127.0.0.1", 8005);
+                client.Connect();
+            }
+           
+
             string[] Answers = { "Single-Player", "Multiplayer(WIP)", "Exit" };
             string Question = "Main Menu";
             switch (Interface.AnswerInterface(Question, Answers))

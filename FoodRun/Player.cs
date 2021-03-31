@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FoodRunners
 {
+    [Serializable]
     class Player
     {
         public int X = 4;

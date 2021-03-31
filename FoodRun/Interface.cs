@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FoodRunners
 {
-     static class Interface
+    static class Interface
     {
         private static string Logo = @"
   _____               _ ____              
@@ -16,7 +16,7 @@ namespace FoodRunners
  |_|  \___/ \___/ \__,_|_| \_\\__,_|_| |_|
                                           ";
 
-        public static int  AnswerInterface<T>(string Title, IEnumerable<T> Answers, int StartPos = 0)
+        public static int AnswerInterface<T>(string Title, IEnumerable<T> Answers, int StartPos = 0)
         {
             Console.Clear();
             string PadString = "";//Used for Padding in Title Showing
@@ -32,8 +32,8 @@ namespace FoodRunners
             PadString = "";
             Console.Write("{0}{1}", Title, PadString.PadRight(Console.WindowWidth - MidTextStart - Title.Length, '-'));
 
-            
-           return AnswerChooser(Answers, StartPos);
+
+            return AnswerChooser(Answers, StartPos);
         }
 
         private static int AnswerChooser<T>(IEnumerable<T> Answers, int StartPos = 0)
@@ -47,7 +47,7 @@ namespace FoodRunners
             {
                 for (int i = 0; i < Answers.Count(); i++)
                 {
-                    Console.SetCursorPosition(0, OrigTop + 2*i);
+                    Console.SetCursorPosition(0, OrigTop + 2 * i);
                     if (answer == i)
                     {
                         Console.Write("\r{0}", ArrowPointer);
@@ -68,13 +68,13 @@ namespace FoodRunners
                     else answer++;
                 }
                 else if (key == "Enter") return answer;
-               
+
             }
 
         }
 
 
-        public static void  MapDraw(Program.Map map, Player player, Food food, AI computer)
+        public static void MapDraw(Program.Map map, Player player, Food food, AI computer)
         {
             map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
             map.CurrMapArray[computer.Y][computer.X] = computer.Character;
@@ -100,7 +100,7 @@ namespace FoodRunners
 
         }
 
-        public  static void PauseTextToggle(Program.Map map, bool state = true)
+        public static void PauseTextToggle(Program.Map map, bool state = true)
         {
             if (state)
             {
@@ -116,10 +116,38 @@ namespace FoodRunners
                 ClearLine();
 
             }
-        
-
-
         }
+
+        public static void MultiplayerMapDraw(Program.Map map, List<Player> players, Food food)
+        {
+            map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
+            foreach (Player player in players)
+            {
+                map.CurrMapArray[player.Y][player.X] = player.Character;
+            }
+            map.CurrMapArray[food.Y][food.X] = food.Character;
+            Console.CursorVisible = false;
+            for (int i = 0; i < map.Height; i++)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.Write("\r{0}    ", string.Join(" ", map.CurrMapArray[i]));
+
+
+            }
+        }
+
+        public static void MultiplayerShowPoints(Program.Map map, List<Player> players)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                Console.SetCursorPosition(0, map.Height + i * 2 + 1);
+                Console.Write(" |{0}|'s Points: {1}   ", players[i].Character, players[i].Points.ToString());
+
+                var randomer = new Random();
+                Console.Write(randomer.Next(0, 100));
+            }
+        }
+
 
         public static void ClearLine()
         {
@@ -129,3 +157,4 @@ namespace FoodRunners
         }
     }
 }
+

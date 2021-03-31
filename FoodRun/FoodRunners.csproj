@@ -44,12 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI.cs" />
+    <Compile Include="Multiplayer\Client.cs" />
+    <Compile Include="Multiplayer\Foo.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Interface.cs" />
+    <Compile Include="Multiplayer\Message.cs" />
+    <Compile Include="Multiplayer\MultiplayerGame.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Multiplayer\Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

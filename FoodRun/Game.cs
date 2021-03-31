@@ -30,10 +30,12 @@ namespace FoodRunners
             Player.Pause += Pause;
             while (true)
             {
-                    ai.AIMovement(Map, Food);
-                    Player.MovementAsync(Map);
-                    FoodCheck(Player, Food, ai);
+                ai.AIMovement(Map, Food);
+                Player.MovementAsync(Map);
+                FoodCheck(Player, Food, ai);
+
                 Interface.MapDraw(Map, Player, Food, ai);
+
                 Interface.PointsShow(Map, Player, ai);
                 Interface.PauseTextToggle(Map, Paused);
             }
