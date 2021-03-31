@@ -50,16 +50,16 @@ namespace FoodRunners
 
             while (true)
             {
+                SendGameInfo();
                 HostPlayer.MovementAsync(Map);//Host player movement
                 for (int i = 0; i < ConnectedPlayers.Count; i++)
                 {
-                    PlayerMovementAsync(ConnectedPlayers.Keys.ToArray()[i]);
+                    PlayerMovement(ConnectedPlayers.Keys.ToArray()[i]);
                 }
                 Players = ConnectedPlayers.Values.ToList();
                 Players.Add(HostPlayer);
                 Game.Players = Players;
 
-                SendGameInfo();
             }
             //Setting up the game....
         }
@@ -86,15 +86,22 @@ namespace FoodRunners
         private object ReceiveData(Socket ReceivingSocket)
         {
             Message message = new Message();
+            ReceivingSocket.ReceiveTimeout = 100;
+            try
+            {
+                byte[] dataLength = new byte[4];
+                ReceivingSocket.Receive(dataLength);
+                int Length = BitConverter.ToInt32(dataLength, 0);
 
-            byte[] dataLength = new byte[4];
-            ReceivingSocket.Receive(dataLength);
-            int Length = BitConverter.ToInt32(dataLength, 0);
+                message.Data = new byte[Length];
+                ReceivingSocket.Receive(message.Data);
 
-            message.Data = new byte[Length];
-            ReceivingSocket.Receive(message.Data);
-
-            return Foo.Deserialize(message);
+                return Foo.Deserialize(message);
+            }
+            catch
+            {
+                return ConnectedPlayers[ReceivingSocket];
+            }
         }
 
         private void SendGameInfo()

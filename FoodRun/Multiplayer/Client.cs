@@ -14,6 +14,7 @@ namespace FoodRunners
         public string serverIP { get; set; }
         public bool Connected = false;
         public Player ClientPlayer;
+        public Multiplayer.MultiplayerGame.GameInfo GameInfo;
 
         public Client(string ipAdress, int port)
         {
@@ -34,27 +35,20 @@ namespace FoodRunners
             SendPlayerPos(ClientSocket);
             while (true)
             {
-                Multiplayer.MultiplayerGame.GameInfo Game = ReceiveGameInfo(ClientSocket) as Multiplayer.MultiplayerGame.GameInfo;
-                Game.Players[0] = ClientPlayer;
-                ClientPlayer.MovementAsync(Game.Map);
-                SendPlayerPosAsync(ClientSocket);
-                // ArraySegment<byte> seg = new ArraySegment<byte>((Foo.Serialize(ClientPlayer).Data),0,299);
-                //  ClientSocket.SendAsync(seg,SocketFlags.None);
-                Interface.MultiplayerMapDraw(Game.Map, Game.Players, Game.Food);
-                Interface.MultiplayerShowPoints(Game.Map, Game.Players);
+                GameInfo = ReceiveGameInfo(ClientSocket) as Multiplayer.MultiplayerGame.GameInfo;
+
+                ClientPlayer.MovementAsync(GameInfo.Map);
+                SendPlayerPos(ClientSocket);
+
+                Interface.MultiplayerMapDraw(GameInfo.Map, GameInfo.Players, GameInfo.Food);
+                Interface.MultiplayerShowPoints(GameInfo.Map, GameInfo.Players);
 
             }
-        }
-
-       async private void SendPlayerPosAsync(Socket ClientSocket)
-        {
-            await Task.Run(() => SendPlayerPos(ClientSocket));
         }
 
         private void SendPlayerPos(Socket ClientSocket)
         {
             Message message = new Message();
-
             byte[] playerInfo = Foo.Serialize(ClientPlayer).Data;
             byte[] packetSize = BitConverter.GetBytes(playerInfo.Length);
             message.Data = new byte[playerInfo.Length + packetSize.Length];
@@ -67,14 +61,21 @@ namespace FoodRunners
         private object ReceiveGameInfo(Socket Client)
         {
             Message message = new Message();
+            Client.ReceiveTimeout = 100;
+            try
+            {
+                byte[] dataLength = new byte[4];
+                Client.Receive(dataLength);
+                int Length = BitConverter.ToInt32(dataLength, 0);
 
-            byte[] dataLength = new byte[4];
-            Client.Receive(dataLength);
-            int Length = BitConverter.ToInt32(dataLength, 0);
-
-            message.Data = new byte[Length];
-            Client.Receive(message.Data);
-            return Foo.Deserialize(message);
+                message.Data = new byte[Length];
+                Client.Receive(message.Data);
+                return Foo.Deserialize(message);
+            }
+            catch
+            {
+                return GameInfo;
+            }
 
         }
     }
