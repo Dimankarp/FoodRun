@@ -146,20 +146,7 @@ namespace FoodRunners
         static void Main(string[] args)
         {
 
-            
-            if (Console.ReadLine() == "start")
-            {       
-                Server server = new Server("127.0.0.1", 8005);
-                server.Start(3,MapFiller());
-            }
-            else
-            {
-                Client client = new Client("127.0.0.1", 8005);
-                client.Connect();
-            }
-           
-
-            string[] Answers = { "Single-Player", "Multiplayer(WIP)", "Exit" };
+            string[] Answers = { "Single-Player", "Multiplayer", "Exit" };
             string Question = "Main Menu";
             switch (Interface.AnswerInterface(Question, Answers))
             {
@@ -167,6 +154,7 @@ namespace FoodRunners
                     SinglePlayerMode();
                     break;
                 case 1:
+                    MultiplayerMode();
                     break;
                 case 2:
                     break;
@@ -223,10 +211,61 @@ namespace FoodRunners
 
         private static void MultiplayerMode()
         {
+            string[] Settings = { "Host Game", "Connect Game" };
+            string Question = "Multyplayer Main Menu";
+            while (true)
+            {
+                switch (Interface.AnswerInterface(Question, Settings))
+                {
+                    case 0:
+                        HostGame();
+                        break;
+                    case 1:
+                        ConnectToGame();
+                        break;
 
+                }
+            }
+        }
+        private static void HostGame()
+        {
+            Map map = MapFiller();
+            string[] Settings = { "Host", "Change Map", "Change Number of Players" };
+            string Question;
+            int CursorPos = 0;
+            int NumOfPlayers = 2;
+            while (true)
+            {
+                Question = $"Current map is:{map.Name}||Number of Players:{NumOfPlayers}";
+                switch (Interface.AnswerInterface(Question, Settings, CursorPos))
+                {
+                    case 0:
+                        Server server = new Server("127.0.0.1", 8005);
+                        Console.Clear();
+                        server.Start(NumOfPlayers, map);
+                        break;
+                    case 1:
+                        CursorPos = 1;
+                        if (map.Number == 5) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
+                        else map = MapFiller(map.Number + 1);
+                        break;
+                    case 2:
+                        CursorPos = 2;
+                        if (NumOfPlayers == 5) NumOfPlayers = 2;
+                        else NumOfPlayers++;
+                        break;
+
+                }
+
+            }
+        }
+
+        private static void ConnectToGame()
+        {
+            Client client = new Client("127.0.0.1", 8005);
+            Console.Clear();
+            client.Connect();
         }
     }
-
-
 }
 
