@@ -107,11 +107,7 @@ namespace FoodRunners
             Message message = new Message();
             Multiplayer.MultiplayerGame.GameInfo Info = Game.GetGameInfo();
 
-            byte[] gameInfo = Foo.Serialize(Info).Data;
-            byte[] packetSize = BitConverter.GetBytes(gameInfo.Length);
-            message.Data = new byte[gameInfo.Length + packetSize.Length];
-            packetSize.CopyTo(message.Data, 0);
-            gameInfo.CopyTo(message.Data, packetSize.Length);
+            message.PacketWrapper(Foo.Serialize(Info).Data);
 
             for (int i = 0; i < ConnectedPlayers.Count; i++)
             {

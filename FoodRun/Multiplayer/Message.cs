@@ -12,7 +12,16 @@ namespace FoodRunners
 
         public Message()
         {
-           Data = new byte[4096];
+            Data = new byte[4096];
+        }
+
+        public void PacketWrapper(byte[] data)
+        {
+            byte[] packetSize = BitConverter.GetBytes(data.Length);
+            Data = new byte[data.Length + packetSize.Length];
+            packetSize.CopyTo(Data, 0);
+            data.CopyTo(Data, packetSize.Length);
+
         }
     }
 }

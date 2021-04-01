@@ -50,11 +50,8 @@ namespace FoodRunners
         private void SendPlayerPos(Socket ClientSocket)
         {
             Message message = new Message();
-            byte[] playerInfo = Foo.Serialize(ClientPlayer).Data;
-            byte[] packetSize = BitConverter.GetBytes(playerInfo.Length);
-            message.Data = new byte[playerInfo.Length + packetSize.Length];
-            packetSize.CopyTo(message.Data, 0);
-            playerInfo.CopyTo(message.Data, packetSize.Length);
+
+            message.PacketWrapper(Foo.Serialize(ClientPlayer).Data);
 
             ClientSocket.Send(message.Data);
         }
