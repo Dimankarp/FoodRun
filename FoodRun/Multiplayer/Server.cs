@@ -29,9 +29,8 @@ namespace FoodRunners
             Socket ListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             ListenSocket.Bind(ipPoint);
-            ListenSocket.Listen(NumOfPlayers - 1);//Here should be the number of Players-1
-
-            for (int i = 0; i < NumOfPlayers - 1; i++)
+            ListenSocket.Listen(NumOfPlayers-1);//Here should be the number of Players-1
+            while (ConnectedPlayers.Count < NumOfPlayers-1)
             {
                 Socket newPlayer = ListenSocket.Accept();
                 ConnectedPlayers.Add(newPlayer, ReceiveData(newPlayer) as Player);
@@ -44,10 +43,9 @@ namespace FoodRunners
             Game = new Multiplayer.MultiplayerGame();
             Game.Map = Map;
             Game.Players = Players;
-            Game.Paused = false;
 
             Game.StartAsync();
-
+            while (Game.State == false) { }
             while (true)
             {
                 SendGameInfo();

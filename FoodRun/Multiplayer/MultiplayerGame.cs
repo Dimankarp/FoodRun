@@ -11,7 +11,7 @@ namespace FoodRunners.Multiplayer
 
         public Program.Map Map { get; set; }
         public List<Player> Players { get; set; }
-        public bool Paused { get; set; }
+        public bool State = false;
         public Food food;
 
         [Serializable]
@@ -20,7 +20,7 @@ namespace FoodRunners.Multiplayer
             public Program.Map Map { get; set; }
             public List<Player> Players { get; set; }
             public Food Food { get; set; }
-            public bool Paused { get; set; }
+            public bool State { get; set; }
         }
 
         public async void StartAsync()
@@ -32,6 +32,7 @@ namespace FoodRunners.Multiplayer
         {
             food = new Food();
             food.FoodTeleport(Map);
+            State = true;
             while (true)
             {
                 GlobalFoodCheck(Players, food);
@@ -62,7 +63,7 @@ namespace FoodRunners.Multiplayer
             {
                 Map = Map,
                 Players = Players,
-                Paused = Paused,
+                State = State,
                 Food = food
             };
         }

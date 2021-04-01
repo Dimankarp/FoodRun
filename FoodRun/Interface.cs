@@ -142,9 +142,6 @@ namespace FoodRunners
             {
                 Console.SetCursorPosition(0, map.Height + i * 2 + 1);
                 Console.Write(" |{0}|'s Points: {1}   ", players[i].Character, players[i].Points.ToString());
-
-                var randomer = new Random();
-                Console.Write(randomer.Next(0, 100));
             }
         }
 

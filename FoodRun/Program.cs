@@ -150,7 +150,7 @@ namespace FoodRunners
             if (Console.ReadLine() == "start")
             {       
                 Server server = new Server("127.0.0.1", 8005);
-                server.Start(2,MapFiller());
+                server.Start(3,MapFiller());
             }
             else
             {

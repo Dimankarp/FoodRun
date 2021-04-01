@@ -33,6 +33,7 @@ namespace FoodRunners
 
             ClientSocket.Connect(ipPoint);
             SendPlayerPos(ClientSocket);
+            GameInfo = ReceiveGameInfo(ClientSocket, false) as Multiplayer.MultiplayerGame.GameInfo;
             while (true)
             {
                 GameInfo = ReceiveGameInfo(ClientSocket) as Multiplayer.MultiplayerGame.GameInfo;
@@ -58,10 +59,10 @@ namespace FoodRunners
             ClientSocket.Send(message.Data);
         }
 
-        private object ReceiveGameInfo(Socket Client)
+        private object ReceiveGameInfo(Socket Client, bool ReceiveTimeOut = true)
         {
             Message message = new Message();
-            Client.ReceiveTimeout = 100;
+            if(ReceiveTimeOut) Client.ReceiveTimeout = 100;
             try
             {
                 byte[] dataLength = new byte[4];
