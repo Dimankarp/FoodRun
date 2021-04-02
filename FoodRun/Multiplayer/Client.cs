@@ -41,8 +41,6 @@ namespace FoodRunners
             {
                 GameInfo = ReceiveGameInfo(ClientSocket) as Multiplayer.MultiplayerGame.GameInfo;
 
-                ClientPlayer.Points = GameInfo.Players[(int)ClientPlayer.Character - 1].Points;
-
                 ClientPlayer.MovementAsync(GameInfo.Map);
                 SendPlayerPos(ClientSocket);
 
