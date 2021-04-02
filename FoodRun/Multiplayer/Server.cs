@@ -59,7 +59,6 @@ namespace FoodRunners
                 Game.Players = Players;
 
             }
-            //Setting up the game....
         }
 
         private void PlayerInitializing()
@@ -68,6 +67,10 @@ namespace FoodRunners
             for (int i = 0; i < ConnectedPlayers.Count; i++)
             {
                 ConnectedPlayers.Values.ToList()[i].Character = (char)(i + 1);
+
+                Message message = new Message();
+                message.PacketWrapper(Foo.Serialize(ConnectedPlayers.Values.ToList()[i]).Data);
+                ConnectedPlayers.Keys.ToList()[i].Send(message.Data);
             }
         }
 
