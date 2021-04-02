@@ -81,7 +81,9 @@ namespace FoodRunners
 
         private void PlayerMovement(Socket PlayerSocket)
         {
-            ConnectedPlayers[PlayerSocket] = ReceiveData(PlayerSocket) as Player;
+            Player player = ReceiveData(PlayerSocket) as Player;
+            ConnectedPlayers[PlayerSocket].X = player.X;
+            ConnectedPlayers[PlayerSocket].Y = player.Y;
         }
 
         private object ReceiveData(Socket ReceivingSocket)
