@@ -74,6 +74,23 @@ namespace FoodRunners
         }
 
 
+       
+
+        private static string UserInputInterface<T>(IEnumerable<T> Answers, int AnswerIndex)
+        {
+            int CursorLeft = Answers.ToArray()[AnswerIndex].ToString().Length + 7;
+            ClearLine(CursorLeft);
+
+            Console.SetCursorPosition(CursorLeft, Console.CursorTop-1);
+            Console.Write(":");
+
+            string UserInput = Console.ReadLine();
+            ClearLine(CursorLeft);
+
+            return UserInput;
+        }
+
+
         public static void MapDraw(Program.Map map, Player player, Food food, AI computer)
         {
             map.CurrMapArray = map.OrigMapArray.Select(a => (char[])a.Clone()).ToArray();
@@ -112,7 +129,7 @@ namespace FoodRunners
             }
             else
             {
-                Console.CursorTop = map.Height + 8; //Added 1 to heigth - look at ClearLine Method()
+                Console.CursorTop = map.Height + 7; //Added 1 to heigth - look at ClearLine Method()
                 ClearLine();
 
             }
@@ -146,11 +163,11 @@ namespace FoodRunners
         }
 
 
-        public static void ClearLine()
+        public static void ClearLine(int CursorLeft = 0)
         {
-            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.SetCursorPosition(CursorLeft, Console.CursorTop);
             Console.Write(new string(' ', Console.BufferWidth));
-            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.SetCursorPosition(CursorLeft, Console.CursorTop);
         }
     }
 }
