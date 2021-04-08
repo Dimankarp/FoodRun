@@ -135,6 +135,28 @@ namespace FoodRunners
                     map.Name = "The Box of Boxes";
                     break;
 
+                case 6://Map #6 - The Field of Rye
+                    map.OrigMapArray = new char[15][]
+                    {
+                   new char[]{'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},         
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},            
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','*','*','*','*','*','*','*','*','*','*','*','*','*','#'},
+                   new char[]{'#','#','#','#','#','#','#','#','#','#','#','#','#','#','#'},
+                    };
+                    map.Name = "The Field of Rye";
+                    break;
+
             }
             map.Number = type;
             map.Height = map.OrigMapArray.Length;
@@ -196,7 +218,7 @@ namespace FoodRunners
                         break;
                     case 1:
                         CursorPos = 1;
-                        if (map.Number == 5) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
+                        if (map.Number == 6) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
                         else map = MapFiller(map.Number + 1);
                         break;
                     case 2:
@@ -248,14 +270,14 @@ namespace FoodRunners
                 {
                     case 0:
                         string[] NetworkData;
-                        if(!Interface.GetIPAndPort(Settings, 0, out NetworkData)) break;
+                        if (!Interface.GetIPAndPort(Settings, 0, out NetworkData)) break;
                         Server server = new Server(NetworkData[0], int.Parse(NetworkData[1]));
                         Console.Clear();
                         server.Start(NumOfPlayers, map);
                         break;
                     case 1:
                         CursorPos = 1;
-                        if (map.Number == 5) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
+                        if (map.Number == 6) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
                         else map = MapFiller(map.Number + 1);
                         break;
                     case 2:
