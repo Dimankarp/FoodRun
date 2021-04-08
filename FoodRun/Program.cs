@@ -211,16 +211,23 @@ namespace FoodRunners
 
         private static void MultiplayerMode()
         {
-            string[] Settings = { "Host Game", "Connect Game" };
+            string[] Settings = { "Host Game", "Connect to Hosted Game(Enter IP and Port)", "Connect to Locally Hosted Game" };
             string Question = "Multyplayer Main Menu";
+            int CursorPos = 0;
             while (true)
             {
-                switch (Interface.AnswerInterface(Question, Settings))
+                switch (Interface.AnswerInterface(Question, Settings, CursorPos))
                 {
                     case 0:
                         HostGame();
                         break;
                     case 1:
+                        CursorPos = 1;
+                        string[] NetworkData;
+                        if (!Interface.GetIPAndPort(Settings, 1, out NetworkData)) break;
+                        ConnectToGame(NetworkData[0], int.Parse(NetworkData[1]));
+                        break;
+                    case 2:
                         ConnectToGame();
                         break;
 
@@ -240,7 +247,9 @@ namespace FoodRunners
                 switch (Interface.AnswerInterface(Question, Settings, CursorPos))
                 {
                     case 0:
-                        Server server = new Server("127.0.0.1", 8005);
+                        string[] NetworkData;
+                        if(!Interface.GetIPAndPort(Settings, 0, out NetworkData)) break;
+                        Server server = new Server(NetworkData[0], int.Parse(NetworkData[1]));
                         Console.Clear();
                         server.Start(NumOfPlayers, map);
                         break;
@@ -260,7 +269,7 @@ namespace FoodRunners
             }
         }
 
-        private static void ConnectToGame()
+        private static void ConnectToGame(string IP = "127.0.0.1", int Port = 8005)
         {
             Client client = new Client("127.0.0.1", 8005);
             Console.Clear();

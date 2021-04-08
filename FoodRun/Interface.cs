@@ -74,17 +74,74 @@ namespace FoodRunners
         }
 
 
-       
+        public static bool GetIPAndPort<T>(IEnumerable<T> Answers, int AnswerIndex, out string[] Data)//Returns true if checking was successful, otherwise -  false
+        {
+            Data = new string[2];
+            string UserInput = UserInputInterface(Answers, AnswerIndex);
+
+            if (!UserInput.Contains(':'))
+            {
+                ErrorMessageShow(Answers, AnswerIndex, "Please, enter an IpAdress in format - IpAdress:Port");
+                return false;
+            }
+
+            UserInput.Trim();
+            Data = UserInput.Split(':');
+
+            if (!Data[0].Contains('.'))
+            {
+                ErrorMessageShow(Answers, AnswerIndex, "Please, enter an IpAdress in format - A.B.C.D");
+                return false;
+            }
+
+            string[] IpNumbers = Data[0].Split('.');
+
+            if (IpNumbers.Length != 4)
+            {
+                ErrorMessageShow(Answers, AnswerIndex, "Please, enter an IpAdress in format - A.B.C.D");
+                return false;
+            }
+
+            foreach (string item in IpNumbers)
+            {
+                int num;
+                if (!int.TryParse(item, out num) || num < 0 || num > 255)
+                {
+                    ErrorMessageShow(Answers, AnswerIndex, "Please, enter an IpAdress using numbers from 0 to 255");
+                    return false;
+                }
+            }
+            int port;
+            if (!int.TryParse(Data[1], out port) || port < 1 || port > 65535)
+            {
+                ErrorMessageShow(Answers, AnswerIndex, "Please, enter an Port using numbers from 1 to 65535");
+                return false;
+            }
+            return true;
+        }
+
+        private static void ErrorMessageShow<T>(IEnumerable<T> Answers, int AnswerIndex, string message)
+        {
+            int CursorLeft = Answers.ToArray()[AnswerIndex].ToString().Length + 7;
+            Console.SetCursorPosition(CursorLeft + 1, 9 + AnswerIndex * 2);
+            ClearLine(CursorLeft + 1);
+            Console.Write(message);
+            Console.ReadKey(true);
+            ClearLine(CursorLeft + 1);
+        }
+
+
 
         private static string UserInputInterface<T>(IEnumerable<T> Answers, int AnswerIndex)
         {
             int CursorLeft = Answers.ToArray()[AnswerIndex].ToString().Length + 7;
+            Console.SetCursorPosition(CursorLeft, 9 + AnswerIndex * 2);//9 is a row, where the first button is located
             ClearLine(CursorLeft);
 
-            Console.SetCursorPosition(CursorLeft, Console.CursorTop-1);
             Console.Write(":");
 
             string UserInput = Console.ReadLine();
+            Console.CursorTop -= 1;
             ClearLine(CursorLeft);
 
             return UserInput;
@@ -129,7 +186,7 @@ namespace FoodRunners
             }
             else
             {
-                Console.CursorTop = map.Height + 7; //Added 1 to heigth - look at ClearLine Method()
+                Console.CursorTop = map.Height + 7;
                 ClearLine();
 
             }
@@ -167,7 +224,7 @@ namespace FoodRunners
         {
             Console.SetCursorPosition(CursorLeft, Console.CursorTop);
             Console.Write(new string(' ', Console.BufferWidth));
-            Console.SetCursorPosition(CursorLeft, Console.CursorTop);
+            Console.SetCursorPosition(CursorLeft, Console.CursorTop - 1);
         }
     }
 }
