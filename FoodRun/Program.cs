@@ -233,7 +233,7 @@ namespace FoodRunners
 
         private static void MultiplayerMode()
         {
-            string[] Settings = { "Host Game", "Connect to Hosted Game(Enter IP and Port)", "Connect to Locally Hosted Game" };
+            string[] Settings = { "Host Game", "Connect to a Hosted Game(Enter IP and Port)", "Connect to a Locally Hosted Game" };
             string Question = "Multyplayer Main Menu";
             int CursorPos = 0;
             while (true)
@@ -259,7 +259,7 @@ namespace FoodRunners
         private static void HostGame()
         {
             Map map = MapFiller();
-            string[] Settings = { "Host", "Change Map", "Change Number of Players" };
+            string[] Settings = { "Host", "Host Locally(Adress - 127.0.0.1:8005)","Change Map", "Change the Number of Players" };
             string Question;
             int CursorPos = 0;
             int NumOfPlayers = 2;
@@ -276,12 +276,18 @@ namespace FoodRunners
                         server.Start(NumOfPlayers, map);
                         break;
                     case 1:
-                        CursorPos = 1;
+                        Server LocalServer = new Server("127.0.0.1", 8005);
+                        Console.Clear();
+                        LocalServer.Start(NumOfPlayers, map);
+                        break;
+
+                    case 2:
+                        CursorPos = 2;
                         if (map.Number == 6) map = MapFiller(1); //Yes, you have to manually change number of maps, when ones are added...Sorry, I guess...
                         else map = MapFiller(map.Number + 1);
                         break;
-                    case 2:
-                        CursorPos = 2;
+                    case 3:
+                        CursorPos = 3;
                         if (NumOfPlayers == 5) NumOfPlayers = 2;
                         else NumOfPlayers++;
                         break;
