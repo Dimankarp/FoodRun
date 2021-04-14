@@ -17,14 +17,20 @@ namespace FoodRunners
         public bool ControlsEnabled = true;
         public delegate void PauseHandler();
         public event PauseHandler Pause;
+        private bool MovementTaskInProgress = false;
 
         public async void MovementAsync(Program.Map map)
         {
-            await Task.Run(() => PlayerMovement(map));
+            if(!MovementTaskInProgress)
+            {
+                MovementTaskInProgress = true ;
+                await Task.Run(() => PlayerMovement(map));
+            }
         }
         private void PlayerMovement(Program.Map map)
         {
             string key = Console.ReadKey(true).Key.ToString();
+            MovementTaskInProgress = false;
             if (key == "P" || key == "Escape")
             {
                 Pause?.Invoke();

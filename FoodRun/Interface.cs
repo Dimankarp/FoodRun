@@ -159,18 +159,26 @@ namespace FoodRunners
             {
                 Console.SetCursorPosition(0, i);
                 Console.Write("\r{0}    ", string.Join(" ", map.CurrMapArray[i]));
-
-
             }
 
         }
 
-        public static void PointsShow(Program.Map map, Player player, AI ai)
+        public static void PointsShow(Program.Map map, Player player, AI ai, int MaxPoints = 0)
         {
-            Console.SetCursorPosition(0, map.Height + 3);
-            Console.Write("Player's Points: {0}   ", player.Points.ToString());
-            Console.SetCursorPosition(0, map.Height + 5);
-            Console.Write("AI's     Points: {0}   ", ai.Points.ToString());
+            if (MaxPoints == 0)
+            {
+                Console.SetCursorPosition(0, map.Height + 3);
+                Console.Write("Player's Points: {0}   ", player.Points.ToString());
+                Console.SetCursorPosition(0, map.Height + 5);
+                Console.Write("AI's     Points: {0}   ", ai.Points.ToString());
+            }
+            else
+            {
+                Console.SetCursorPosition(0, map.Height + 3);
+                Console.Write("Player's Points: {0}/{1}   ", player.Points.ToString(), MaxPoints);
+                Console.SetCursorPosition(0, map.Height + 5);
+                Console.Write("AI's     Points: {0}/{1}  ", ai.Points.ToString(), MaxPoints);
+            }
 
         }
 

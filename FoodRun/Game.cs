@@ -10,14 +10,16 @@ namespace FoodRunners
     {
         public Program.Map Map;
         public Player Player;
+        public int MaxPts;
         private AI ai;
         private bool Paused = false;
 
 
-        public Game(Program.Map map, Player player)
+        public Game(Program.Map map, Player player, int PointsGoal = 0)
         {
             Map = map;
             Player = player;
+            MaxPts = PointsGoal;
         }
 
         public void Start(int AIDifficulty = 1)
@@ -36,7 +38,7 @@ namespace FoodRunners
 
                 Interface.MapDraw(Map, Player, Food, ai);
 
-                Interface.PointsShow(Map, Player, ai);
+                Interface.PointsShow(Map, Player, ai, MaxPts);
                 Interface.PauseTextToggle(Map, Paused);
             }
 
@@ -56,6 +58,30 @@ namespace FoodRunners
                 food.FoodTeleport(Map);
                 ai.Points += food.Value;
             }
+            WinningCheck(player, ai);
+        }
+
+        private void WinningCheck(Player player, AI oldAI)
+        {
+            if (MaxPts != 0 && (player.Points >= MaxPts || oldAI.Points >= MaxPts))
+            {
+                Paused = true;
+                ai.Paused = true;
+                if (player.Points >= MaxPts)
+                {
+                    string WinningTextPlayer = "The Player has won the game. Glory to the Sinful One!";
+                    string[] Options = { "Get boiled alive by the Satan." };
+                    if (Interface.AnswerInterface(WinningTextPlayer, Options) == 0) System.Environment.Exit(0); //Yes, that's brutal!
+                }
+                else
+                {
+                    string WinningTextAI = "The AI has won the game. Glory to the Machine!";
+                    string[] Options = { "Get sacrificed to the AI." };
+                    if (Interface.AnswerInterface(WinningTextAI, Options) == 0) System.Environment.Exit(0); //Yes, even more brutal!
+                }
+            }
+            else return;
+
         }
 
         private void Pause()

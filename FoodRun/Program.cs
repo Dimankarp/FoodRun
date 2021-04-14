@@ -188,10 +188,11 @@ namespace FoodRunners
         {
             Map map = MapFiller();
             Player player = new Player();
-            string[] Settings = { "Start", "Change Map", "Change AI's Difficulty" };
+            string[] Settings = { "Start", "Change Map", "Change AI's Difficulty", "Change Points Goal" };
             string Question;
             int CursorPos = 0;
             int AIDifficulty = 3;
+            int PointsGoal = 0;
             while (true)
             {
                 Question = $"Current map is:{map.Name}";
@@ -208,12 +209,21 @@ namespace FoodRunners
                         break;
 
                 }
+                switch (PointsGoal)
+                {
+                    case 0:
+                        Question += "|Pts:Infinite";
+                        break;
+                    default:
+                        Question += $"|Pts:{PointsGoal}";
+                        break;
+                }
 
 
                 switch (Interface.AnswerInterface(Question, Settings, CursorPos))
                 {
                     case 0:
-                        Game NewGame = new Game(map, player);
+                        Game NewGame = new Game(map, player, PointsGoal);
                         NewGame.Start(AIDifficulty);
                         break;
                     case 1:
@@ -226,6 +236,12 @@ namespace FoodRunners
                         if (AIDifficulty == 1) AIDifficulty = 3;
                         else AIDifficulty--;
                         break;
+                    case 3:
+                        CursorPos = 3;
+                        if (PointsGoal == 1000) PointsGoal = 0;
+                        else PointsGoal += 200;
+                        break;
+              
 
                 }
             }
