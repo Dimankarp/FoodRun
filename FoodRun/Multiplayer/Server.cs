@@ -28,13 +28,25 @@ namespace FoodRunners
             IPEndPoint ipPoint = new IPEndPoint(IPAddress.Parse(HostIP), Port);
             Socket ListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
+            string Title = $"Waiting for Players to connect - {NumOfPlayers - 1 - ConnectedPlayers.Count}";
+            string[] NullArray = new string[0];
+            Interface.AnswerInterface(Title, NullArray);
+            Console.CursorTop += 2;
+            int OrigTop = Console.CursorTop;
+
             ListenSocket.Bind(ipPoint);
-            ListenSocket.Listen(NumOfPlayers-1);//Here should be the number of Players-1
+            ListenSocket.Listen(NumOfPlayers-1);
             while (ConnectedPlayers.Count < NumOfPlayers-1)
             {
                 Socket newPlayer = ListenSocket.Accept();
                 ConnectedPlayers.Add(newPlayer, ReceiveData(newPlayer) as Player);
+
+                //Interface.AnswerInterface(Title, NullArray);
+                Console.SetCursorPosition(6, OrigTop + 2 * ConnectedPlayers.Count - 1);
+                Console.Write("\x4 {0} - {1} is connected.", ConnectedPlayers.Last().Value.Character, ConnectedPlayers.Last().Key.AddressFamily.ToString());
+
             }
+            Console.Clear();
             PlayerInitializing();
 
             List<Player> Players = ConnectedPlayers.Values.ToList();

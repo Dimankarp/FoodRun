@@ -32,6 +32,7 @@ namespace FoodRunners
             PadString = "";
             Console.Write("{0}{1}", Title, PadString.PadRight(Console.WindowWidth - MidTextStart - Title.Length, '-'));
 
+            if (Answers.Count() == 0) return 0;//In that case - just types Logo and Title
 
             return AnswerChooser(Answers, StartPos);
         }
