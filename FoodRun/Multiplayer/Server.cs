@@ -41,7 +41,9 @@ namespace FoodRunners
                 Socket newPlayer = ListenSocket.Accept();
                 ConnectedPlayers.Add(newPlayer, ReceiveData(newPlayer) as Player);
 
-                //Interface.AnswerInterface(Title, NullArray);
+                Title = $"Waiting for Players to connect - {NumOfPlayers - 1 - ConnectedPlayers.Count}";
+                Interface.AnswerInterfaceTitleChange(Title);
+
                 Console.SetCursorPosition(6, OrigTop + 2 * ConnectedPlayers.Count - 1);
                 Console.Write("\x4 {0} - {1} is connected.", ConnectedPlayers.Last().Value.Character, ConnectedPlayers.Last().Key.AddressFamily.ToString());
 

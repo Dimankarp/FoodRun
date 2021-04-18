@@ -74,6 +74,19 @@ namespace FoodRunners
 
         }
 
+        public static void AnswerInterfaceTitleChange(string NewTitle)
+        {
+            string PadString = "";
+            Console.CursorTop = 7;
+
+            int MidTextStart = Console.WindowWidth / 2 - NewTitle.Length / 2;
+            Console.CursorLeft = MidTextStart;
+
+            Console.Write("\r{0}", PadString.PadRight(MidTextStart - 1, '-')); //Padding and Writing Title
+            PadString = "";
+            Console.Write("{0}{1}", NewTitle, PadString.PadRight(Console.WindowWidth - MidTextStart - NewTitle.Length, '-'));
+        }
+
 
         public static bool GetIPAndPort<T>(IEnumerable<T> Answers, int AnswerIndex, out string[] Data)//Returns true if checking was successful, otherwise -  false
         {
