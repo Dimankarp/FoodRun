@@ -17,6 +17,14 @@ namespace FoodRunners
         public Player HostPlayer;
         public Dictionary<Socket, Player> ConnectedPlayers = new Dictionary<Socket, Player>();//Not including the host!
 
+        [Serializable]
+        public class LobbyInfo
+        {
+            public int NumberOfPlayers { get; set; }
+            public List<Player> ConnectedPlayers { get; set; }
+            public string MapName { get; set; }
+        }
+
         public Server(string ipAdress, int port)
         {
             HostIP = ipAdress;
@@ -35,11 +43,13 @@ namespace FoodRunners
             int OrigTop = Console.CursorTop;
 
             ListenSocket.Bind(ipPoint);
-            ListenSocket.Listen(NumOfPlayers-1);
-            while (ConnectedPlayers.Count < NumOfPlayers-1)
+            ListenSocket.Listen(NumOfPlayers - 1);
+            while (ConnectedPlayers.Count < NumOfPlayers - 1)
             {
                 Socket newPlayer = ListenSocket.Accept();
                 ConnectedPlayers.Add(newPlayer, ReceiveData(newPlayer) as Player);
+
+                SendLobbyInfo(NumOfPlayers, Map);
 
                 Title = $"Waiting for Players to connect - {NumOfPlayers - 1 - ConnectedPlayers.Count}";
                 Interface.AnswerInterfaceTitleChange(Title);
@@ -132,6 +142,25 @@ namespace FoodRunners
             {
                 ConnectedPlayers.Keys.ToArray()[i].Send(message.Data);
             }
+        }
+
+        private void SendLobbyInfo(int NumOfPlayers, Program.Map map)
+        {
+            Message message = new Message();
+            LobbyInfo Info = new LobbyInfo
+            {
+                NumberOfPlayers = NumOfPlayers,
+                ConnectedPlayers = ConnectedPlayers.Values.ToList(),
+                MapName = map.Name
+            };
+
+            message.PacketWrapper(Foo.Serialize(Info).Data);
+
+            for (int i = 0; i < ConnectedPlayers.Count; i++)
+            {
+                ConnectedPlayers.Keys.ToArray()[i].Send(message.Data);
+            }
+
         }
 
 
