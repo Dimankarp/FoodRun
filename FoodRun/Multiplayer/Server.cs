@@ -55,7 +55,7 @@ namespace FoodRunners
                 Interface.AnswerInterfaceTitleChange(Title);
 
                 Console.SetCursorPosition(6, OrigTop + 2 * ConnectedPlayers.Count - 1);
-                Console.Write("\x4 {0} - {1} is connected.", ConnectedPlayers.Last().Value.Character, ConnectedPlayers.Last().Key.AddressFamily.ToString());
+                Console.Write("\x4 {0} - {1} is connected.", (char)ConnectedPlayers.Count, ConnectedPlayers.Last().Key.AddressFamily.ToString());
 
             }
             Console.Clear();

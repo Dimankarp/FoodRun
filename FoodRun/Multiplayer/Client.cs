@@ -44,7 +44,7 @@ namespace FoodRunners
             for(int i = 0; i < LobbyInfo.ConnectedPlayers.Count; i++)
             {
                 Console.SetCursorPosition(6, OrigTop + 2 * i);
-                Console.Write("\x4 {0} - is connected.", LobbyInfo.ConnectedPlayers[i].Character);
+                Console.Write("\x4 {0} - is connected.", (char)(i+1));
             }
 
             int NumOfPlayersToConnect = LobbyInfo.NumberOfPlayers - 1 - LobbyInfo.ConnectedPlayers.Count;
@@ -54,7 +54,7 @@ namespace FoodRunners
                 Title = $"Waiting for Players to connect - {NumOfPlayersToConnect - i}";
                 Interface.AnswerInterfaceTitleChange(Title);
                 Console.SetCursorPosition(6, OrigTop + 2 * LobbyInfo.ConnectedPlayers.Count - 1);
-                Console.Write("\x4 {0} - is connected.", LobbyInfo.ConnectedPlayers.Last().Character);
+                Console.Write("\x4 {0} - is connected.", (char)LobbyInfo.ConnectedPlayers.Count);
             }
             Console.Clear();//End of Lobby stage
 
