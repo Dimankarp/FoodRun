@@ -35,4 +35,4 @@ an artificial opponent! He is also starving, so the competition is up. To equal 
 |Uses ASCII Graphics?| **YES**| No |
 |Weighs less than 15KB| **YES**| No |
 
-***Convinced? Well, then go and download the latest release - 0.2.0-alpha***
+***Convinced? Well, then go and download the latest release - 0.2.0***
