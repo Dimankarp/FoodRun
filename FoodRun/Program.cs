@@ -315,7 +315,7 @@ namespace FoodRunners
 
         private static void ConnectToGame(string IP = "127.0.0.1", int Port = 8005)
         {
-            Client client = new Client("127.0.0.1", 8005);
+            Client client = new Client(IP, Port);
             Console.Clear();
             client.Connect();
         }
